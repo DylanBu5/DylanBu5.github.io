@@ -28,7 +28,41 @@ h1 {
   color: #fff;
 }
 
+.collapsible {
+  background-color: #580e0e;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
 
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
 
 </style>
 </head>
@@ -37,14 +71,45 @@ h1 {
 <h1>Hello World</h1>
 <p>I'm hosted with GitHub Pages.</p>
 
+
 <div id="mydiv">
-  <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-  <div id="mydivheader">catanddogplayingpiano</div>
+<button class="collapsible">dogandcatplayingpiano</button>
+<div class="content">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/sGy86JpbvGw?si=a68oSk0gYFOYeXC_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
+</div>
+
+
+
 
 <script>
+
+//<div id="mydivheader">catanddogplayingpiano</div>
+
+
+  // collapsable
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      } 
+    content.style.top = document.getElementById("mydiv").offsetTop;
+    content.style.left = document.getElementById("mydiv").offsetLeft;
+    });
+  }
+
+
+
+	// draggable
     dragElement(document.getElementById("mydiv"));
+    //dragElement(coll);
 
     function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
